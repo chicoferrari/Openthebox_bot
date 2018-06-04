@@ -5,6 +5,7 @@ using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Dialogs;
 using System.Web.Http.Description;
 using System.Net.Http;
+using SimpleEchoBot.Dialogs;
 
 namespace Microsoft.Bot.Sample.SimpleEchoBot
 {
@@ -20,14 +21,15 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
         public virtual async Task<HttpResponseMessage> Post([FromBody] Activity activity)
         {
             // check if activity is of type message
-            if (activity != null && activity.GetActivityType() == ActivityTypes.Message)
+            if (ActivityTypes.Message == activity.GetActivityType() && !string.IsNullOrEmpty(activity.Text))
             {
-                await Conversation.SendAsync(activity, () => new EchoDialog());
+                await Conversation.SendAsync(activity, () => new RootDialog());
             }
             else
             {
                 HandleSystemMessage(activity);
             }
+
             return new HttpResponseMessage(System.Net.HttpStatusCode.Accepted);
         }
 
