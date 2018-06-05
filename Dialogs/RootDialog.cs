@@ -1,11 +1,8 @@
 ﻿using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace SimpleEchoBot.Dialogs
 {
@@ -37,9 +34,14 @@ namespace SimpleEchoBot.Dialogs
 
         private async Task ResumeAfterChoiceDialog(IDialogContext context, IAwaitable<object> result)
         {
-            await result;
+            var message = await result;
 
-            await context.PostAsync("Escolheu algo esse mizeravi?");
+            await context.Forward(new QuizDialog(), ResumeAfterQuizDialog, message, CancellationToken.None);
+        }
+
+        private async Task ResumeAfterQuizDialog(IDialogContext context, IAwaitable<object> result)
+        {
+            await context.PostAsync($"Aeeee caral**! Terminou essa bagaça!");
 
             context.Wait(MessageReceivedAsync);
         }
