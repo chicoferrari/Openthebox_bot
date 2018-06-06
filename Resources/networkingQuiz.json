@@ -1,3 +1,10 @@
 ﻿{
-
+  "index": 0,
+  "text": "\"Qual a camada do modelo OSI em que o FTP e o HTTP operam?",
+  "answers": [
+    "Aplicação",
+    "Apresentação",
+    "Transporte"
+  ],
+  "correctAnswer": "Aplicação"
 }

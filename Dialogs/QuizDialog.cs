@@ -1,5 +1,7 @@
 ﻿using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
+using SimpleEchoBot.Factories;
+using SimpleEchoBot.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,12 +18,8 @@ namespace SimpleEchoBot.Dialogs
 
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
-            PromptDialog.Choice(context, this.CheckAnswerAfterQuestion, new List<string>() {
-                "50",
-                "100",
-                "Africanas ou europeias?",
-                "Não sei!"
-            }, "Qual a velocidade de uma andorinha?", "É o que temos pra hoje meu fio. Escolhe ae..", 3);
+            var question = new QuizFactory().Question;
+            PromptDialog.Choice(context, this.CheckAnswerAfterQuestion, question.Answers, question.Text, "É o que temos pra hoje meu fio. Escolhe ae..", 3);
         }
 
         private async Task CheckAnswerAfterQuestion(IDialogContext context, IAwaitable<string> result)

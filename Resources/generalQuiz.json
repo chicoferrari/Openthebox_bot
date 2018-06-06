@@ -1,3 +1,10 @@
 ﻿{
-
+  "index": 0,
+  "text": "Qual das afirmações NÃO é verdadeira?",
+  "answers": [
+    "Intolerância religiosa é um crime de ódio.",
+    "A intolerância religiosa não é crime no Brasil.",
+    "Intolerância religiosa é cometer atos de vandalismo contra os templos de outras religiões."
+  ],
+  "correctAnswer": "A intolerância religiosa não é crime no Brasil."
 }
