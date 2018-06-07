@@ -14,7 +14,7 @@ namespace SimpleEchoBot.Factories
 
         public QuizFactory()
         {
-            var myPath = System.Web.Hosting.HostingEnvironment.MapPath("~") + "Resources/generalQuiz.json";
+            var myPath = System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath + "Resources/generalQuiz.json";
             Console.WriteLine(myPath);
             Question = JsonConvert.DeserializeObject<QuestionModel>(File.ReadAllText(myPath));
         }
