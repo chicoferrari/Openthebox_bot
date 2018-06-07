@@ -9,6 +9,8 @@ namespace SimpleEchoBot.Dialogs.Quiz
     [Serializable]
     public class GeneralQuizDialog : IDialog<object>
     {
+        private string CorrectAnswer { get; set; }
+
         public async Task StartAsync(IDialogContext context)
         {
             context.Wait(MessageReceivedAsync);
@@ -17,6 +19,9 @@ namespace SimpleEchoBot.Dialogs.Quiz
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
             var question = QuizFactory.GeneralQuestions[new Random().Next(0, QuizFactory.GeneralQuestions.Count - 1)];
+
+            CorrectAnswer = question.CorrectAnswer;
+
             PromptDialog.Choice(context, this.CheckAnswerAfterQuestion, question.Answers, question.Text, "É o que temos pra hoje meu fio. Escolhe ae..", 3);
         }
 
@@ -26,13 +31,13 @@ namespace SimpleEchoBot.Dialogs.Quiz
             {
                 string optionSelected = await result;
 
-                if (optionSelected == "Africanas ou europeias?")
+                if (optionSelected == CorrectAnswer)
                 {
-                    await context.PostAsync("Você acertou seu mizeravi!");
+                    await context.PostAsync("Ahh muleke, quem diria que essa por*a tá certa!");
                 }
                 else
                 {
-                    await context.PostAsync("Aee cara? Ta me tirando...");
+                    await context.PostAsync("Dae mano? Tá errado.");
                 }
 
                 context.Done(optionSelected);
