@@ -175,7 +175,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Dialogs\ChoiceDialog.cs" />
-    <Compile Include="Dialogs\QuizDialog.cs" />
+    <Compile Include="Dialogs\Quiz\GeneralQuizDialog.cs" />
+    <Compile Include="Dialogs\Quiz\NetworkQuizDialog.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
     <Compile Include="Dialogs\SupportDialog.cs" />
     <Compile Include="Dialogs\WelcomeDialog.cs" />
@@ -190,12 +191,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Resources\networkingQuiz.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\generalQuiz.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

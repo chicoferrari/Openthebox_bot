@@ -3,6 +3,8 @@ using Microsoft.Bot.Connector;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using SimpleEchoBot.Constants;
+using SimpleEchoBot.Dialogs.Quiz;
 
 namespace SimpleEchoBot.Dialogs
 {
@@ -14,7 +16,7 @@ namespace SimpleEchoBot.Dialogs
             context.Wait(MessageReceivedAsync);
         }
 
-        public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
+        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
             var message = await argument;
 
@@ -36,7 +38,14 @@ namespace SimpleEchoBot.Dialogs
         {
             var message = await result;
 
-            await context.Forward(new QuizDialog(), ResumeAfterQuizDialog, message, CancellationToken.None);
+            if ((string) message == QuizPathOptions.GeneralOption)
+            {
+                await context.Forward(new GeneralQuizDialog(), ResumeAfterQuizDialog, message, CancellationToken.None);    
+            }
+            if ((string) message == QuizPathOptions.NetworkingOption)
+            {
+                await context.Forward(new NetworkQuizDialog(), ResumeAfterQuizDialog, message, CancellationToken.None);
+            }
         }
 
         private async Task ResumeAfterQuizDialog(IDialogContext context, IAwaitable<object> result)

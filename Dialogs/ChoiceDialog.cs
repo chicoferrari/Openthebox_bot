@@ -1,8 +1,8 @@
-﻿using Microsoft.Bot.Builder.Dialogs;
-using SimpleEchoBot.Constants;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Bot.Builder.Dialogs;
+using SimpleEchoBot.Constants;
 
 namespace SimpleEchoBot.Dialogs
 {
@@ -23,17 +23,15 @@ namespace SimpleEchoBot.Dialogs
         {
             try
             {
-                string optionSelected = await result;
+                var optionSelected = await result;
 
-                switch (optionSelected)
+                if (optionSelected == QuizPathOptions.NetworkingOption)
                 {
-                    case QuizPathOptions.NetworkingOption:
-                        await context.PostAsync("Ae sim quero ver você responder tudo...");
-                        break;
-
-                    case QuizPathOptions.GeneralOption:
-                        await context.PostAsync("Bora responder e abrir ssápo**a...");
-                        break;
+                    await context.PostAsync("Ae sim quero ver você responder tudo...");
+                }
+                else if (optionSelected == QuizPathOptions.GeneralOption)
+                {
+                    await context.PostAsync("Bora responder e abrir ssápo**a...");
                 }
 
                 context.Done(optionSelected);
