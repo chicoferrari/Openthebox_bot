@@ -5,8 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using SimpleEchoBot.Constants;
 using SimpleEchoBot.Dialogs.Quiz;
-using Microsoft.Bot.Builder.Dialogs.Internals;
-using Autofac;
 
 namespace SimpleEchoBot.Dialogs
 {
@@ -39,18 +37,6 @@ namespace SimpleEchoBot.Dialogs
         private async Task ResumeAfterChoiceDialog(IDialogContext context, IAwaitable<object> result)
         {
             var message = await result;
-
-            using (var scope = DialogModule.BeginLifetimeScope(Conversation.Container, context.Activity as Activity))
-            {
-                //Resolve scope for IBotDataStore<BotData>
-                IBotDataStore<BotData> stateStore = scope.Resolve<IBotDataStore<BotData>>();
-
-                /* Retrieve user address. Address key holds information about Bot, Channel, User and conversation */
-                Address key = Address.FromActivity(context.Activity as Activity);
-
-                //Load user data with the help of key
-                BotData userData = await stateStore.LoadAsync(key, BotStoreType.BotUserData, CancellationToken.None);
-            }
 
             if ((string) message == QuizPathOptions.GeneralOption)
             {
