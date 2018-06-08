@@ -11,7 +11,10 @@ namespace SimpleEchoBot.Dialogs
     [Serializable]
     public class RootDialog : IDialog<object>
     {
-        private NetworkQuizDialog NetworkQuizDialog = new NetworkQuizDialog();
+        private readonly NetworkQuizDialog NetworkQuizDialog = new NetworkQuizDialog();
+        private readonly GeneralQuizDialog GeneralQuizDialog = new GeneralQuizDialog();
+        private string Quiz { get; set; } 
+
         public async Task StartAsync(IDialogContext context)
         {
             context.Wait(MessageReceivedAsync);
@@ -41,18 +44,8 @@ namespace SimpleEchoBot.Dialogs
             {
                 var message = (string) await result;
 
-                if (message == QuizPathOptions.GeneralOption)
-                {
-                    await context.Forward(new GeneralQuizDialog(), ResumeAfterQuizDialog, QuizState.Started, CancellationToken.None);
-                }
-                else if (message == QuizPathOptions.NetworkingOption)
-                {
-                    await context.Forward(NetworkQuizDialog, ResumeAfterQuizDialog, QuizState.Started, CancellationToken.None);
-                }
-                else
-                {
-                    context.Done("Rolou uma opção bem invalida.");
-                }
+                Quiz = message;
+                await ResumeQuiz(context, QuizState.Started);
             }
             catch (Exception exception)
             {
@@ -67,7 +60,7 @@ namespace SimpleEchoBot.Dialogs
 
             if (state == QuizState.Continue)
             {
-                await context.Forward(NetworkQuizDialog, ResumeAfterQuizDialog, state, CancellationToken.None);
+                await ResumeQuiz(context, state);
             }
             else
             {
@@ -85,6 +78,17 @@ namespace SimpleEchoBot.Dialogs
             await context.PostAsync("Obrigado por ter pedido ajuda, mas não sei se poderemos ajudar...");
 
             context.Wait(MessageReceivedAsync);
+        }
+
+        private async Task ResumeQuiz(IDialogContext context, QuizState state)
+        {
+            var quiz = (IDialog<object>) GeneralQuizDialog;
+            if (Quiz == QuizPathOptions.NetworkingOption)
+            {
+                quiz = NetworkQuizDialog;
+            }
+
+            await context.Forward(quiz, ResumeAfterQuizDialog, QuizState.Started, CancellationToken.None);
         }
     }
 }
