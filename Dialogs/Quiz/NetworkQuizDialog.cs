@@ -58,7 +58,7 @@ namespace SimpleEchoBot.Dialogs.Quiz
                 {
                     await context.PostAsync("Você acertou seu mizeravi!");
 
-                    if (QuizFactory.GeneralQuestions.Count - 1 > QuestionsMade.Count)
+                    if (QuizFactory.NetworkingQuestions.Count - 1 > QuestionsMade.Count)
                     {
                         state = QuizState.Continue;
                     }
