@@ -13,7 +13,7 @@ namespace SimpleEchoBot.Utils
             var rand = random.Next(min, max);
 
             while (exceptionList.Contains(rand))
-                rand = random.Next(min, max);
+                rand = min++;
 
             return rand;
         }
