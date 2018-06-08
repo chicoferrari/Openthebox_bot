@@ -22,9 +22,9 @@ namespace SimpleEchoBot.Dialogs.Quiz
 
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
-            int TotalQuestions = QuizFactory.NetworkingQuestions.Count - 1;
+            int TotalQuestions = QuizFactory.GeneralQuestions.Count - 1;
             var questionIndex = new UniqueRandom().GetRandomExcept(0, TotalQuestions, QuestionsMade);
-            var question = QuizFactory.NetworkingQuestions[questionIndex];
+            var question = QuizFactory.GeneralQuestions[questionIndex];
 
             QuestionsMade.Add(questionIndex);
             CorrectAnswer = question.CorrectAnswer;
