@@ -38,6 +38,7 @@ namespace SimpleEchoBot.Dialogs
             }
             catch (TooManyAttemptsException ex)
             {
+                Console.WriteLine("Error={0} Dialog=\"Choice\"", ex.Message);
                 context.Fail(new Exception("Ooopahh! Muitas tentativas : (."));
             }
         }

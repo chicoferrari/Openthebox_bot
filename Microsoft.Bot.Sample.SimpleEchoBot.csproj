@@ -175,6 +175,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Dialogs\ChoiceDialog.cs" />
+    <Compile Include="Constants\QuizState.cs" />
     <Compile Include="Dialogs\Quiz\GeneralQuizDialog.cs" />
     <Compile Include="Dialogs\Quiz\NetworkQuizDialog.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="Models\ResultModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Constants\QuizPathOptions.cs" />
+    <Compile Include="Utils\Random.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -11,6 +11,7 @@ namespace SimpleEchoBot.Dialogs
     [Serializable]
     public class RootDialog : IDialog<object>
     {
+        private NetworkQuizDialog NetworkQuizDialog = new NetworkQuizDialog();
         public async Task StartAsync(IDialogContext context)
         {
             context.Wait(MessageReceivedAsync);
@@ -36,23 +37,45 @@ namespace SimpleEchoBot.Dialogs
 
         private async Task ResumeAfterChoiceDialog(IDialogContext context, IAwaitable<object> result)
         {
-            var message = await result;
+            try
+            {
+                var message = (string) await result;
 
-            if ((string) message == QuizPathOptions.GeneralOption)
-            {
-                await context.Forward(new GeneralQuizDialog(), ResumeAfterQuizDialog, message, CancellationToken.None);    
+                if (message == QuizPathOptions.GeneralOption)
+                {
+                    await context.Forward(new GeneralQuizDialog(), ResumeAfterQuizDialog, QuizState.Started, CancellationToken.None);
+                }
+                else if (message == QuizPathOptions.NetworkingOption)
+                {
+                    await context.Forward(NetworkQuizDialog, ResumeAfterQuizDialog, QuizState.Started, CancellationToken.None);
+                }
+                else
+                {
+                    context.Done("Rolou uma opção bem invalida.");
+                }
             }
-            if ((string) message == QuizPathOptions.NetworkingOption)
+            catch (Exception exception)
             {
-                await context.Forward(new NetworkQuizDialog(), ResumeAfterQuizDialog, message, CancellationToken.None);
+                Console.WriteLine("Error={0} Dialog=\"Root\"", exception.Message);
+                context.Fail(exception);
             }
         }
 
         private async Task ResumeAfterQuizDialog(IDialogContext context, IAwaitable<object> result)
         {
-            await context.PostAsync($"Aeeee caral**! Terminou essa bagaça!");
+            var state = (QuizState) await result;
 
-            context.Wait(MessageReceivedAsync);
+            if (state == QuizState.Continue)
+            {
+                await context.Forward(NetworkQuizDialog, ResumeAfterQuizDialog, state, CancellationToken.None);
+            }
+            else
+            {
+                if (state == QuizState.Won)
+                    await context.PostAsync($"Aeeee caral**! Terminou essa bagaça!");
+                else
+                    await context.PostAsync($"Falou, valeu, você perdeu..");
+            }
         }
 
         private async Task ResumeAfterSupportDialog(IDialogContext context, IAwaitable<object> result)

@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -20,17 +21,26 @@ namespace SimpleEchoBot.Controllers
         [ResponseType(typeof(void))]
         public virtual async Task<HttpResponseMessage> Post([FromBody] Activity activity)
         {
-            // check if activity is of type message
-            if (ActivityTypes.Message == activity.GetActivityType() && !string.IsNullOrEmpty(activity.Text))
+            try
             {
-                await Conversation.SendAsync(activity, () => new RootDialog());
+                // check if activity is of type message
+                if (ActivityTypes.Message == activity.GetActivityType() && !string.IsNullOrEmpty(activity.Text))
+                {
+                    await Conversation.SendAsync(activity, () => new RootDialog());
+                }
+                else
+                {
+                    HandleSystemMessage(activity);
+                }
+
+                return new HttpResponseMessage(HttpStatusCode.Accepted);
             }
-            else
+            catch (Exception exception)
             {
-                HandleSystemMessage(activity);
+                Console.WriteLine("Error={0} Dialog=Controller", exception.Message);
             }
 
-            return new HttpResponseMessage(HttpStatusCode.Accepted);
+            return new HttpResponseMessage(HttpStatusCode.InternalServerError);
         }
 
         private Activity HandleSystemMessage(Activity message)
