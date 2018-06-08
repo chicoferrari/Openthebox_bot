@@ -29,7 +29,8 @@ namespace SimpleEchoBot.Dialogs.Quiz
             QuestionsMade.Add(questionIndex);
             CorrectAnswer = question.CorrectAnswer;
 
-            PromptDialog.Choice(context, CheckAnswerAfterQuestion, question.Answers, question.Text, "É o que temos pra hoje meu fio. Escolhe ae..", 3);
+            PromptDialog.Choice(context, CheckAnswerAfterQuestion, question.Answers, question.Text, 
+                "É o que temos pra hoje meu fio. Escolhe ae..", 3);
         }
 
         private async Task CheckAnswerAfterQuestion(IDialogContext context, IAwaitable<string> result)
