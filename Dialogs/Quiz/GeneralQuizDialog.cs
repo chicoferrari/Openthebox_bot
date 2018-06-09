@@ -16,17 +16,18 @@ namespace SimpleEchoBot.Dialogs.Quiz
         private int QuestionIndex { get; set; } = 0;
         private List<int> QuestionsList { get; set; } = new List<int>();
         private readonly int QuestionCount = 5;
+        private readonly int QuestionTotal = QuizFactory.GeneralQuestions.Count - 1;
         private Random Random = new Random();
 
         public void Initalize()
         {
-            for (var v = 0; v < QuestionCount; v++)
+            for (var v = 0; v < QuestionTotal; v++)
             {
                 QuestionsList.Add(v);
             }
 
             
-            QuestionsList = QuestionsList.OrderBy(k => k = Random.Next(0, QuestionCount)).ToList();
+            QuestionsList = QuestionsList.OrderBy(k => k = Random.Next(0, QuestionTotal)).ToList();
         }
 
         public async Task StartAsync(IDialogContext context)
