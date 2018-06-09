@@ -6,7 +6,6 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using SimpleEchoBot.Constants;
 using SimpleEchoBot.Factories;
-using SimpleEchoBot.Utils;
 
 namespace SimpleEchoBot.Dialogs.Quiz
 {
@@ -16,7 +15,8 @@ namespace SimpleEchoBot.Dialogs.Quiz
         private string CorrectAnswer { get; set; }
         private int QuestionIndex { get; set; } = 0;
         private List<int> QuestionsList { get; set; } = new List<int>();
-        private readonly int QuestionCount = QuizFactory.GeneralQuestions.Count - 1;
+        private readonly int QuestionCount = 5;
+        private Random Random = new Random();
 
         public void Initalize()
         {
@@ -25,8 +25,8 @@ namespace SimpleEchoBot.Dialogs.Quiz
                 QuestionsList.Add(v);
             }
 
-            var random = new Random();
-            QuestionsList = QuestionsList.OrderBy(k => k = random.Next(0, QuestionCount)).ToList();
+            
+            QuestionsList = QuestionsList.OrderBy(k => k = Random.Next(0, QuestionCount)).ToList();
         }
 
         public async Task StartAsync(IDialogContext context)

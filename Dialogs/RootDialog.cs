@@ -13,6 +13,8 @@ namespace SimpleEchoBot.Dialogs
     {
         private readonly NetworkQuizDialog NetworkQuizDialog = new NetworkQuizDialog();
         private readonly GeneralQuizDialog GeneralQuizDialog = new GeneralQuizDialog();
+        private readonly SupportDialog SupportDialog = new SupportDialog();
+        private readonly ChoiceDialog ChoiceDialog = new ChoiceDialog();
         private string Quiz { get; set; } 
 
         public async Task StartAsync(IDialogContext context)
@@ -26,11 +28,11 @@ namespace SimpleEchoBot.Dialogs
 
             if (message.Text.ToLower().Contains("help") || message.Text.ToLower().Contains("ajuda"))
             {
-                await context.Forward(new SupportDialog(), ResumeAfterSupportDialog, message, CancellationToken.None);
+                await context.Forward(SupportDialog, ResumeAfterSupportDialog, message, CancellationToken.None);
             }
             else if (message.Text.ToLower().Contains("start") || message.Text.ToLower().Contains("iniciar"))
             {
-                await context.Forward(new ChoiceDialog(), ResumeAfterChoiceDialog, message, CancellationToken.None);
+                await context.Forward(ChoiceDialog, ResumeAfterChoiceDialog, message, CancellationToken.None);
             }
             else
             {

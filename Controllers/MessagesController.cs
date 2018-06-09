@@ -14,6 +14,8 @@ namespace SimpleEchoBot.Controllers
     [BotAuthentication]
     public class MessagesController : ApiController
     {
+        private RootDialog RootDialog = new RootDialog();
+
         /// <summary>
         /// POST: api/Messages
         /// receive a message from a user and send replies
@@ -27,11 +29,19 @@ namespace SimpleEchoBot.Controllers
                 // check if activity is of type message
                 if (ActivityTypes.Message == activity.GetActivityType() && !string.IsNullOrEmpty(activity.Text))
                 {
-                    await Conversation.SendAsync(activity, () => new RootDialog());
+                    Activity reply = activity.CreateReply();
+
+                    reply.Type = ActivityTypes.Typing; reply.Text = null;
+
+                    ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
+
+                    await connector.Conversations.ReplyToActivityAsync(reply);
+
+                    await Conversation.SendAsync(activity, () => RootDialog);
                 }
                 else
                 {
-                    HandleSystemMessage(activity);
+                    await HandleSystemMessage(activity);
                 }
 
                 return new HttpResponseMessage(HttpStatusCode.Accepted);
