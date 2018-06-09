@@ -16,17 +16,24 @@ namespace SimpleEchoBot.Dialogs.Quiz
         private string CorrectAnswer { get; set; }
         private int QuestionIndex { get; set; } = 0;
         private List<int> QuestionsList { get; set; } = new List<int>();
+        private readonly int QuestionCount = QuizFactory.NetworkingQuestions.Count - 1;
+
+        public void Initalize()
+        {
+            for (var v = 0; v < QuestionCount; v++)
+            {
+                QuestionsList.Add(v);
+            }
+
+            var random = new Random();
+            QuestionsList = QuestionsList.OrderBy(k => k = random.Next(0, QuestionCount)).ToList();
+        }
 
         public async Task StartAsync(IDialogContext context)
         {
             try
             {
-                for (var v = 0; v < QuizFactory.NetworkingQuestions.Count; v++)
-                {
-                    QuestionsList.Add(v);
-                }
-
-                QuestionsList.OrderBy(m => new Random().Next());
+                if (QuestionIndex == 0) Initalize();
 
                 context.Wait(MessageReceivedAsync);
             }
@@ -65,7 +72,7 @@ namespace SimpleEchoBot.Dialogs.Quiz
                 {
                     await context.PostAsync("Você acertou seu mizeravi!");
 
-                    if (QuizFactory.NetworkingQuestions.Count - 1 > QuestionIndex)
+                    if (QuestionIndex < QuestionCount)
                     {
                         state = QuizState.Continue;
                     }
@@ -77,6 +84,12 @@ namespace SimpleEchoBot.Dialogs.Quiz
                 else
                 {
                     await context.PostAsync("Aee cara? Ta me tirando... ssá por*a tá errada!");
+                }
+
+                if (state != QuizState.Continue)
+                {
+                    QuestionIndex = 0;
+                    QuestionsList.Clear();
                 }
 
                 context.Done(state);

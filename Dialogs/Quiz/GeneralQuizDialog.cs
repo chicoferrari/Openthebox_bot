@@ -16,15 +16,22 @@ namespace SimpleEchoBot.Dialogs.Quiz
         private string CorrectAnswer { get; set; }
         private int QuestionIndex { get; set; } = 0;
         private List<int> QuestionsList { get; set; } = new List<int>();
+        private readonly int QuestionCount = QuizFactory.GeneralQuestions.Count - 1;
 
-        public async Task StartAsync(IDialogContext context)
+        public void Initalize()
         {
-            for (var v = 0; v < QuizFactory.GeneralQuestions.Count; v++)
+            for (var v = 0; v < QuestionCount; v++)
             {
                 QuestionsList.Add(v);
             }
 
-            QuestionsList.OrderBy(m => new Random().Next());
+            var random = new Random();
+            QuestionsList = QuestionsList.OrderBy(k => k = random.Next(0, QuestionCount)).ToList();
+        }
+
+        public async Task StartAsync(IDialogContext context)
+        {
+            if (QuestionIndex == 0) Initalize();
 
             context.Wait(MessageReceivedAsync);
         }
@@ -51,7 +58,7 @@ namespace SimpleEchoBot.Dialogs.Quiz
                 {
                     await context.PostAsync("Ahh muleke, quem diria que essa por*a tá certa!");
 
-                    if (QuizFactory.GeneralQuestions.Count - 1 > QuestionIndex)
+                    if (QuestionIndex < QuestionCount)
                     {
                         state = QuizState.Continue;
                     }
@@ -63,6 +70,12 @@ namespace SimpleEchoBot.Dialogs.Quiz
                 else
                 {
                     await context.PostAsync("Dae mano? Tá errado.");
+                }
+
+                if (state != QuizState.Continue)
+                {
+                    QuestionIndex = 0;
+                    QuestionsList.Clear();
                 }
 
                 context.Done(state);
