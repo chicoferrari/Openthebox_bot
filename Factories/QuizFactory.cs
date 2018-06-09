@@ -9,25 +9,28 @@ namespace SimpleEchoBot.Factories
         {
             new QuestionModel()
             {
-                Text = "Qual das afirmações NÃO é verdadeira?",
+                Text = "Qual das afirmações NÃO é verdadeira?\n" +
+                "I - Intolerância religiosa é um crime de ódio.\n" +
+                "II - A intolerância religiosa não é crime no Brasil.\n" +
+                "III - Intolerância religiosa é cometer atos de vandalismo contra os templos de outras religiões.",
                 Answers = new List<string>()
                 {
-                    "Intolerância religiosa é um crime de ódio.",
-                    "A intolerância religiosa não é crime no Brasil.",
-                    "Intolerância religiosa é cometer atos de vandalismo contra os templos de outras religiões."
+                    "I",
+                    "II",
+                    "III"
                 },
-                CorrectAnswer = "A intolerância religiosa não é crime no Brasil."
+                CorrectAnswer = "II"
             },
             new QuestionModel()
             {
-                Text = "Quais os quatros países que têm a maior população carcerária do mundo?",
+                Text = "Quais o país que possui a maior população carcerária do mundo?",
                 Answers = new List<string>()
                 {
-                    "Brasil, Estados Unidos, México e Índia",
-                    "China, Estados Unidos, Índia e Indonésia",
-                    "Estados Unidos, China, Rússia e Brasil",
+                    "Brasil",
+                    "China",
+                    "Estados Unidos",
                 },
-                CorrectAnswer = "Estados Unidos, China, Rússia e Brasil"
+                CorrectAnswer = "Estados Unidos"
             },
             new QuestionModel()
             {
@@ -43,36 +46,25 @@ namespace SimpleEchoBot.Factories
             },
             new QuestionModel()
             {
-                Text = "O que é Brexit?",
+                Text = "Qual o tema central do Acordo de Paris?",
                 Answers = new List<string>()
                 {
-                    "Saída do Reino Unido da Zona Euro",
-                    "Saída do Reino Unido da União Europeia",
-                    "Mudança do sistema de governo no Reino Unido"
+                    "Restrição de imigrantes",
+                    "Desenvolvimento Sustentável",
+                    "Aquecimento global"
                 },
-                CorrectAnswer = "Saída do Reino Unido da União Europeia"
+                CorrectAnswer = "Aquecimento global"
             },
             new QuestionModel()
             {
-                Text = "O que é o Acordo de Paris?",
+                Text = "Qual o acontecimento completou 100 em 2017?",
                 Answers = new List<string>()
                 {
-                    "Acordo internacional que trata da restrição de imigrantes em Paris",
-                    "Acordo internacional que trata do Desenvolvimento Sustentável",
-                    "Acordo internacional que trata do aquecimento global"
+                    "Revolução Russa",
+                    "Revolta da Sabinada",
+                    "Nascimento de Frida Khalo"
                 },
-                CorrectAnswer = "Acordo internacional que trata do aquecimento global"
-            },
-            new QuestionModel()
-            {
-                Text = "Quais os acontecimentos completaram 100 e 500 anos respectivamente em 2017?",
-                Answers = new List<string>()
-                {
-                    "Revolução Russa e Reforma Protestante",
-                    "Revolução Pernambucana e Revolta da Sabinada",
-                    "Centenário do nascimento de Frida Khalo e Início do Classicismo"
-                },
-                CorrectAnswer = "Revolução Russa e Reforma Protestante"
+                CorrectAnswer = "Revolução Russa"
             },
             new QuestionModel()
             {
@@ -88,14 +80,14 @@ namespace SimpleEchoBot.Factories
             new QuestionModel()
             {
                 Text =
-                    "Chernobyl e Césio-137 fazem parte dos maiores acidentes nucleares da história. Em que países aconteceram?",
+                    "Chernobyl faz parte de um dos maiores acidentes nucleares da história. Em que país acorreu?",
                 Answers = new List<string>()
                 {
-                    "Rússia e Espanha",
-                    "Ucrânia e Brasil",
-                    "Taiwan e Alemanha"
+                    "Rússia",
+                    "Ucrânia",
+                    "Alemanha"
                 },
-                CorrectAnswer = "Ucrânia e Brasil"
+                CorrectAnswer = "Ucrânia"
             },
             new QuestionModel()
             {
@@ -177,26 +169,15 @@ namespace SimpleEchoBot.Factories
             },
             new QuestionModel()
             {
-                Text = "Qual a função da ONU?",
-                Answers = new List<string>()
-                {
-                    "Zelar pela cultura em todas as nações",
-                    "Unir as nações com o objetivo de manter a paz e a segurança mundial",
-                    "Gerenciar acordos de comércio entre os países"
-                },
-                CorrectAnswer = "Unir as nações com o objetivo de manter a paz e a segurança mundial"
-            },
-            new QuestionModel()
-            {
                 Text =
-                    "Mao Tsé-tung, Jean Jacques Dessalines e Nelson Mandela foram respectivamente os governantes de quais países?",
+                    "Jean Jacques Dessalines foi o governante de qual país?",
                 Answers = new List<string>()
                 {
-                    "Japão, França e Angola",
-                    "China, Haiti e África do Sul",
-                    "Taiwan, Bélgica, Moçambique"
+                    "França",
+                    "Haiti",
+                    "Moçambique"
                 },
-                CorrectAnswer = "China, Haiti e África do Sul"
+                CorrectAnswer = "Haiti"
             },
             new QuestionModel()
             {
@@ -212,36 +193,14 @@ namespace SimpleEchoBot.Factories
             },
             new QuestionModel()
             {
-                Text = "Em que governo brasileiro foi sancionada a lei das cotas para o ensino superior?",
+                Text = "Qual presidente brasileiro sancionou a lei das cotas para o ensino superior?",
                 Answers = new List<string>()
                 {
-                    "Governo de Fernando Henrique",
-                    "Governo de Luís Inácio Lula da Silva",
-                    "Governo de Dilma Rousseff"
+                    "Fernando Henrique",
+                    "Lula da Silva",
+                    "Dilma Rousseff"
                 },
-                CorrectAnswer = "Governo de Dilma Rousseff"
-            },
-            new QuestionModel()
-            {
-                Text = "Quais as consequências para o Brasil decorrentes da crise na Venezuela?",
-                Answers = new List<string>()
-                {
-                    "Sobrecarregamento no sistema público de saúde em Roraima",
-                    "Aumento de mão de obra",
-                    "Melhoria nos serviços sociais a fim de atender os imigrantes venezuelanos"
-                },
-                CorrectAnswer = "Sobrecarregamento no sistema público de saúde em Roraima"
-            },
-            new QuestionModel()
-            {
-                Text = "Quais as respectivas cores da reciclagem do papel, do vidro, do metal e do plástico?",
-                Answers = new List<string>()
-                {
-                    "azul, verde, amarelo e vermelho",
-                    "verde, azul, vermelho e amarelo",
-                    "vermelho, amarelo, verde e azul",
-                },
-                CorrectAnswer = "azul, verde, amarelo e vermelho"
+                CorrectAnswer = "Dilma Rousseff"
             }
         };
 
@@ -260,14 +219,17 @@ namespace SimpleEchoBot.Factories
             },
             new QuestionModel()
             {
-                Text = "É correto afirmar sobre o APACHE:",
+                Text = "É correto afirmar sobre o APACHE:\n" +
+                    "I - Faz a função de servidor e proxy\n" +
+                    "II - Funciona em Linux, Windows e MAC OS\n" +
+                    "III - Só funciona em Linux",
                 Answers = new List<string>()
                 {
-                    "Faz a função de servidor e proxy",
-                    "Funciona em Linux, Windows e MAC OS",
-                    "Só funciona em Linux"
+                    "I",
+                    "II",
+                    "III"
                 },
-                CorrectAnswer = "Funciona em Linux, Windows e MAC OS"
+                CorrectAnswer = "II"
             },
             new QuestionModel()
             {
@@ -285,11 +247,11 @@ namespace SimpleEchoBot.Factories
                 Text = "Para conectar sua estação de trabalho a uma rede local de computadores controlada por um servidor de domínios, o usuário dessa rede deve informar uma senha e um[a]:",
                 Answers = new List<string>()
                 {
-                    "Porta válida para a intranet desse domínio",
-                    "Conta cadastrada e autorizada nesse domínio",
-                    "certificação de navegação segura registrada na intranet"
+                    "Porta válida",
+                    "Conta cadastrada",
+                    "Certificação"
                 },
-                CorrectAnswer = "Conta cadastrada e autorizada nesse domínio"
+                CorrectAnswer = "Conta cadastrada"
             },
             new QuestionModel()
             {
@@ -326,36 +288,45 @@ namespace SimpleEchoBot.Factories
             },
             new QuestionModel()
             {
-                Text = "Qual das alternativas abaixo é verdadeira sobre IPv6?",
+                Text = "Qual das alternativas abaixo é verdadeira sobre IPv6?\n" +
+                    "I - Protocolo de endereçamento IP que possui 128 bits (ou 16 bytes)\n" +
+                    "II - Protocolo de endereçamento IP que inclui funções de roteamento dinâmico\n" +
+                    "III - Protocolo de endereçamento IP para aplicações apenas em redes locais",
                 Answers = new List<string>()
                 {
-                    "Protocolo de endereçamento IP que possui 128 bits (ou 16 bytes)",
-                    "Protocolo de endereçamento IP que inclui funções de roteamento dinâmico",
-                    "Protocolo de endereçamento IP para aplicações apenas em redes locais"
+                    "I",
+                    "II",
+                    "III"
                 },
-                CorrectAnswer = "Protocolo de endereçamento IP que possui 128 bits (ou 16 bytes)"
+                CorrectAnswer = "I"
             },
             new QuestionModel()
             {
-                Text = "Sobre a operação Ethernet full-duplex é correto afirmar que:",
+                Text = "Sobre a operação Ethernet full-duplex é correto afirmar que:\n" +
+                    "I - No modo full-duplex pode ocorrer colisão de dados entre o PC e o switch\n" +
+                    "II - Dois métodos de realizar o modo full-duplex são por auto-negociação e por configuração administrativa\n" +
+                    "III - Todas as implementações de Ethernet podem tanto o half-duplex como o full-duplex",
                 Answers = new List<string>()
                 {
-                    "No modo full-duplex pode ocorrer colisão de dados entre o PC e o switch",
-                    "Dois métodos de realizar o modo full-duplex são por auto-negociação e por configuração administrativa",
-                    "Todas as implementações de Ethernet podem tanto o half-duplex como o full-duplex"
+                    "I",
+                    "II",
+                    "III"
                 },
-                CorrectAnswer = "Dois métodos de realizar o modo full-duplex são por auto-negociação e por configuração administrativa"
+                CorrectAnswer = "II"
             },
             new QuestionModel()
             {
-                Text = "Qual das seguintes funções abaixo é verdadeira em relação ao TCP/IP?",
+                Text = "Qual das seguintes funções abaixo é verdadeira em relação ao TCP/IP?\n" +
+                    "I - Realiza o encapsulamento do quadro\n" +
+                    "II - Faz a definição do melhor caminho\n" +
+                    "III -Faz o controle de fluxo de dados e garantia de entrega",
                 Answers = new List<string>()
                 {
-                    "Realiza o encapsulamento do quadro",
-                    "Faz a definição do melhor caminho",
-                    "Faz o controle de fluxo de dados e garantia de entrega"
+                    "I",
+                    "II",
+                    "III"
                 },
-                CorrectAnswer = "Faz o controle de fluxo de dados e garantia de entrega"
+                CorrectAnswer = "III"
             }
         };
     }
