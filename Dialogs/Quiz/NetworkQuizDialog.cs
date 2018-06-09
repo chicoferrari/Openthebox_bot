@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
@@ -13,12 +14,20 @@ namespace SimpleEchoBot.Dialogs.Quiz
     public class NetworkQuizDialog : IDialog<object>
     {
         private string CorrectAnswer { get; set; }
-        private List<int> QuestionsMade { get; set; } = new List<int>();
+        private int QuestionIndex { get; set; } = 0;
+        private List<int> QuestionsList { get; set; } = new List<int>();
 
         public async Task StartAsync(IDialogContext context)
         {
             try
             {
+                for (var v = 0; v < QuizFactory.NetworkingQuestions.Count; v++)
+                {
+                    QuestionsList.Add(v);
+                }
+
+                QuestionsList.OrderBy(m => new Random().Next());
+
                 context.Wait(MessageReceivedAsync);
             }
             catch (Exception exception)
@@ -31,11 +40,9 @@ namespace SimpleEchoBot.Dialogs.Quiz
         {
             try
             {
-                int TotalQuestions = QuizFactory.NetworkingQuestions.Count - 1;
-                var questionIndex = new UniqueRandom().GetRandomExcept(0, TotalQuestions, QuestionsMade);
+                var questionIndex = QuestionsList[QuestionIndex++];
                 var question = QuizFactory.NetworkingQuestions[questionIndex];
 
-                QuestionsMade.Add(questionIndex);
                 CorrectAnswer = question.CorrectAnswer;
 
                 PromptDialog.Choice(context, CheckAnswerAfterQuestion, question.Answers, question.Text, 
@@ -58,7 +65,7 @@ namespace SimpleEchoBot.Dialogs.Quiz
                 {
                     await context.PostAsync("Você acertou seu mizeravi!");
 
-                    if (QuizFactory.NetworkingQuestions.Count - 1 > QuestionsMade.Count)
+                    if (QuizFactory.NetworkingQuestions.Count - 1 > QuestionIndex)
                     {
                         state = QuizState.Continue;
                     }

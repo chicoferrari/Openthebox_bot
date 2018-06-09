@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
@@ -13,20 +14,26 @@ namespace SimpleEchoBot.Dialogs.Quiz
     public class GeneralQuizDialog : IDialog<object>
     {
         private string CorrectAnswer { get; set; }
-        private List<int> QuestionsMade { get; set; } = new List<int>();
+        private int QuestionIndex { get; set; } = 0;
+        private List<int> QuestionsList { get; set; } = new List<int>();
 
         public async Task StartAsync(IDialogContext context)
         {
+            for (var v = 0; v < QuizFactory.GeneralQuestions.Count; v++)
+            {
+                QuestionsList.Add(v);
+            }
+
+            QuestionsList.OrderBy(m => new Random().Next());
+
             context.Wait(MessageReceivedAsync);
         }
 
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
-            int TotalQuestions = QuizFactory.GeneralQuestions.Count - 1;
-            var questionIndex = new UniqueRandom().GetRandomExcept(0, TotalQuestions, QuestionsMade);
+            var questionIndex = QuestionsList[QuestionIndex++];
             var question = QuizFactory.GeneralQuestions[questionIndex];
 
-            QuestionsMade.Add(questionIndex);
             CorrectAnswer = question.CorrectAnswer;
 
             PromptDialog.Choice(context, CheckAnswerAfterQuestion, question.Answers, question.Text, 
@@ -44,7 +51,7 @@ namespace SimpleEchoBot.Dialogs.Quiz
                 {
                     await context.PostAsync("Ahh muleke, quem diria que essa por*a tá certa!");
 
-                    if (QuizFactory.GeneralQuestions.Count - 1 > QuestionsMade.Count)
+                    if (QuizFactory.GeneralQuestions.Count - 1 > QuestionIndex)
                     {
                         state = QuizState.Continue;
                     }
