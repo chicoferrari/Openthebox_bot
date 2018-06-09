@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using SimpleEchoBot.Constants;
 using SimpleEchoBot.Dialogs.Quiz;
+using SimpleEchoBot.Notifications;
 
 namespace SimpleEchoBot.Dialogs
 {
@@ -33,10 +34,6 @@ namespace SimpleEchoBot.Dialogs
             else if (message.Text.ToLower().Contains("start") || message.Text.ToLower().Contains("iniciar"))
             {
                 await context.Forward(ChoiceDialog, ResumeAfterChoiceDialog, message, CancellationToken.None);
-            }
-            else
-            {
-                await context.PostAsync("Ae... Não entendi o que você quis dizer...");
             }
         }
 
@@ -67,9 +64,15 @@ namespace SimpleEchoBot.Dialogs
             else
             {
                 if (state == QuizState.Won)
+                {
+                    Notification.SendNotification();
                     await context.PostAsync($"Aeeee caral**! Terminou essa bagaça!");
+                }
                 else
+                {
                     await context.PostAsync($"Falou, valeu, você perdeu..");
+                }
+                    
             }
         }
 
