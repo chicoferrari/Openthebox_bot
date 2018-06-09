@@ -52,7 +52,7 @@ namespace SimpleEchoBot.Dialogs.Quiz
                 CorrectAnswer = question.CorrectAnswer;
 
                 PromptDialog.Choice(context, CheckAnswerAfterQuestion, question.Answers, question.Text, 
-                    "É o que temos pra hoje meu fio. Escolhe ae..", 3, PromptStyle.Keyboard);
+                    "É o que temos pra hoje meu fio. Escolhe ae..", 3);
             }
             catch (Exception exception)
             {
